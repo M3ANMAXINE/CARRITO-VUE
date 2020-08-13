@@ -33,6 +33,7 @@
                   <span aria-hidden="true">&times;</span>
                 </button>
               </div>
+             
 
               <div class="modal-body">
                 <p v-if="!cart.length">Sin productos en el carro</p>
@@ -78,7 +79,7 @@
                 <button class="btn btn-sm btn-warning" @click='removeFromCart'>Sacar del carro</button> 
                   
                 
-                <product-tabs :reviews="reviews" :send="shipping"></product-tabs>
+                <product-tabs :reviews="reviews" :send="shipping" :details="details"></product-tabs>
           </div>          
         </div>
     </script>  
@@ -99,6 +100,9 @@
         <review-list :reviews="reviews" v-show="selectedTab=='ver review'" ></review-list><!-- v-show oculta en un display none -->
 
         <review-send :send="send" v-show="selectedTab=='envio'"></review-send>
+
+        <detail-product :details="details" v-show="selectedTab=='detalles'"> </detail-product>
+
       </div>
     </script>   
 <!----------------------------FIN TEMPLATE TABSSSS!!!! ---------------------------------------------------------------------------->
@@ -123,57 +127,76 @@
     </script>
 <!----------------------------FIN TEMPLATE SEND!!!! ------------------------------------------------------------------------------------>
 
+<!----------------------------TEMPLATE DETAILS!!!! ------------------------------------------------------------------------------------>
 
-<!----------------------------------TEMPLATE FORM!!!! ----------------------------------------------------------------------------------->
-<script type="text/x-template" id="template-form" >
+<script type="text/x-template" id="template-detail">
   <div>
-    <div v-if="errors.length" class="alert alert-warning alert-dismissible">
-      
-      <b>Pr favor corregir  los siguientes errores: </b>
-        <ul>
-          <li v-for="error in errors">{{error}}</li>
-        </ul>
-        <button type="button" @click="errors = []" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>  
-    </div>
-    
-    <form @submit="saveReview">
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputEmail">Email</label>
-          <input v-model="email" required type="email" class="form-control">
-        </div>      
-      </div>   
-  
-      <div class="form-row">
-        <div class="form-group col-md-6">
-          <label for="inputCity">Reviews</label>
-          <textarea v-model="review" class="form-control"></textarea>       
-        </div>
-
-        <div class="form-group col-md-4">
-          <label for="inputState">Notas</label>
-          <select v-model.number="rating" class="form-control">
-            <option selected>Escoja...</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
-          </select>
-        </div>     
-      </div>
-      <button type="submit" class="btn btn-primary">Agregar reviews</button>
-    </form>
+    {{details}}
   </div>
 </script>
-<!---------------------------FIN TEMPLATE FORMM!!!! ------------------------------------------------------------------------------------>
+<!----------------------------FIN TEMPLATE DETAILS!!!! ------------------------------------------------------------------------------------>
 
 
 
+<!----------------------------------TEMPLATE FORM!!!! ----------------------------------------------------------------------------------->
+    <script type="text/x-template" id="template-form" >
+      <div>
+        <div v-if="errors.length" class="alert alert-warning alert-dismissible">
+          
+          <b>Pr favor corregir  los siguientes errores: </b>
+            <ul>
+              <li v-for="error in errors">{{error}}</li>
+            </ul>
+            <button type="button" @click="errors = []" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>  
+        </div>
+        
+        <form @submit="saveReview">
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputEmail">Email</label>
+              <input v-model="email" required type="email" class="form-control">
+            </div>      
+          </div>   
+      
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="inputCity">Reviews</label>
+              <textarea v-model="review" class="form-control"></textarea>       
+            </div>
 
-    <script src="main.js"></script>
+            <div class="form-group col-md-4">
+              <label for="inputState">Notas</label>
+              <select v-model.number="rating" class="form-control">
+                <option selected>Escoja...</option>
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </select>
+            </div>     
+          </div>
+          <button type="submit" class="btn btn-primary">Agregar reviews</button>
+        </form>
+      </div>
+    </script>
+<!-------------------------- 
+    
+    
+    <script src="./products/detail.js"></script>-FIN TEMPLATE FORMM!!!! ------------------------------------------------------------------------------------>
+
+    
+    <script src="./products/index.js"></script>
+    <script src="./products/form.js"></script>
+    <script src="./products/send.js"></script>    
+    <script src="./products/list.js"></script>
+    <script src="./products/tabs.js"></script>
+    <script src="./products/detail.js"></script>
+   
+     <script src="main.js"></script>   
   </body>    
+
 </html>
 
